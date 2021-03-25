@@ -179,7 +179,7 @@ const email = document.querySelector("#email");
 // });
 
 function validationPass(element) {
-    element.parentElement = document.getElementById('valid');
+    element.parentElement = 'valid';
     element.parentElement.remove = 'not-valid';
     element.lastElementChild.parentElement = 'none';
 }
@@ -221,19 +221,19 @@ const emailValidator = () => {
     return emailIsValid;
 }
 
-const languageValidator = () => {
-    const languageSectionIsValid = languageTotal > 0;
+// const languageValidator = () => {
+//     const languageSectionIsValid = languageTotal > 0;
 
-    if (languageSectionIsValid == true) {
-        validationPass(languagesBox);
-    } else {
-        validationFail(languagesBox);
-    }
+//     if (languageSectionIsValid == true) {
+//         validationPass(languagesBox);
+//     } else {
+//         validationFail(languagesBox);
+//     }
 
-    languageSectionIsValid = languageTotal > 0;
+//     languageSectionIsValid = languageTotal > 0;
 
-    return languageSectionIsValid;
-}
+//     return languageSectionIsValid;
+// }
 
 const ccNum = document.getElementById('cc-num');
 const zipcode = document.getElementById('zip');
