@@ -101,7 +101,7 @@ let activitiesCostTotal = 0;
 let activitiesUserInput = document.querySelectorAll('input[type=checkbox]');
 
 activitiesField.addEventListener('change', (event) => {
-    const costOfData = event.getAttribute('data-cost');
+    const costOfData = event.target.getAttribute('activities-cost');
     if (event.target.checked === true) {
         activitiesCostTotal += costOfData;
     } else {
