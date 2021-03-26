@@ -106,19 +106,19 @@ activitiesField.addEventListener('change', (event) => {
     const costOfData = event.target.getAttribute('activities-cost');
     if (event.target.checked === true) {
         activitiesCostTotal += costOfData;
-    } else {
+    } else if (event.target.checked === false) {
         activitiesCostTotal -= costOfData;
     }
     costOfActivities.innerHTML = `Total: ${activitiesCostTotal}`;
     const timeConflict = event.target.getAttribute('data-day-and-time');
     const selectedTimeConflict = event.target;
-    for (let i = 0; i < activitiesUserInput.length; i++) {
-        if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time') 
-        && selectedTimeConflict !== activitiesUserInput[i]) {
-            activitiesUserInput[i].disabled = true;
-            activitiesUserInput[i].parentElement.classList.remove('disabled');
-        }
+for (let i = 0; i < activitiesUserInput.length; i++) {
+    if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time') 
+    && selectedTimeConflict !== activitiesUserInput[i]) {
+        activitiesUserInput[i].disabled = true;
+        activitiesUserInput[i].parentElement.classList.remove('disabled');
     }
+}
 });
 /**
  * The preferred or most common payment method option should be selected 
@@ -187,7 +187,8 @@ function validationPass(element) {
 }
 
 function validationFail(element) {
-    element.parentElement.classList = 'not valid';
+    e.preventDefault();
+    element.parentElement.classList.add('not valid');
     element.parentElement.classList.remove('valid');
     element.parentElement.lastElementChild.style.display = 'block';
 }
