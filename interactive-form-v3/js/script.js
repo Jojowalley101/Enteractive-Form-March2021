@@ -63,25 +63,27 @@ const shirtColorOptions = shirtColorElement.children;
 shirtColorElement.disabled = true;
 //shirtDesignElement.disabled = true;
 
-shirtDesignElement.addEventListener('change', (e) => {
-    if (e.target.value === 'js puns' || e.target.value === 'heart js') {
-        shirtColorElement.removeAttribute('disabled');
-    } else {
-        shirtColorElement.setAttribute('disabled');
-    }
-
+shirtDesignElement.addEventListener('change', () => {
+    // if (e.target.value === 'js puns' || e.target.value === 'heart js') {
+    //     shirtColorElement.removeAttribute('disabled');
+    // } else {
+    //     shirtColorElement.setAttribute('disabled');
+    // }
+    shirtColorElement.disabled = false;
+    shirtColorElement.firstElementChild.selected = true;
     for (let i = 0; i < shirtColorOptions.length; i++) {
-        const targetValueOfImg = e.target.value;
+        
         //console.log(targetValueOfImg);
         //console.log(shirtColorElement.children[i]);
-        const dataThemeElement = shirtColorElement.children[i].getAttribute('data-theme');
+        const dataThemeElement = shirtColorElement[i].getAttribute('data-theme');
         //console.log(dataThemeElement);
-        if (dataThemeElement == targetValueOfImg) {
-            shirtColorElement.children[i].hidden = false;
-            shirtColorElement.children[i].setAttribute('selected') = true;
+        
+
+        if (shirtDesignElement.value === dataThemeElement) {
+            shirtColorElement[i].hidden = false;
+            //shirtColorElement.children[i].setAttribute('selected') = true;
         } else {
-            shirtColorElement.children[i].hidden = true;
-            shirtColorElement.children[i].setAttribute('selected') = false;
+            shirtColorElement[i].hidden = true;
             //console.log("The select element's change event listener is functional!");
     };
 };
@@ -179,15 +181,15 @@ const email = document.querySelector("#email");
 // });
 
 function validationPass(element) {
-    element.parentElement = 'valid';
-    element.parentElement.remove = 'not-valid';
-    element.lastElementChild.parentElement = 'none';
+    element.parentElement.classList.add('valid');
+    element.parentElement.classList.remove('not-valid');
+    element.parentElement.lastElementChild.style.display = 'none';
 }
 
 function validationFail(element) {
-    element.parentElement.className = 'not valid';
-    element.parentElement.className.remove = 'valid';
-    element.lastElementChild.parentElement.style.display = 'block';
+    element.parentElement.classList = 'not valid';
+    element.parentElement.classList.remove('valid');
+    element.parentElement.lastElementChild.style.display = 'block';
 }
 
 /* Helper function to validate name input */
@@ -264,10 +266,10 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     }
 
-    if (!languageValidator()) {
-        console.log('Invalid language total prevented submission');
-        e.preventDefault();
-    }
+    // if (!languageValidator()) {
+    //     console.log('Invalid language total prevented submission');
+    //     e.preventDefault();
+    // }
 
     // Submit handler test log - Feel free to delete this or comment it out
     console.log('Submit handler is functional!');
