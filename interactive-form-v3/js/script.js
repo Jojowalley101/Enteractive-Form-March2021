@@ -103,11 +103,12 @@ let activitiesCostTotal = 0;
 let activitiesUserInput = document.querySelectorAll('input[type=checkbox]');
 
 activitiesField.addEventListener('change', (event) => {
-    const costOfData = event.target.getAttribute('activities-cost');
+    const costOfData = event.target.getAttribute('data-cost');
+    const priceData = parseInt(costOfData, 10);
     if (event.target.checked === true) {
-        activitiesCostTotal += costOfData;
-    } else if (event.target.checked === false) {
-        activitiesCostTotal -= costOfData;
+        activitiesCostTotal += priceData;
+    } else {
+        activitiesCostTotal -= priceData;
     }
     costOfActivities.innerHTML = `Total: ${activitiesCostTotal}`;
     const timeConflict = event.target.getAttribute('data-day-and-time');
@@ -116,7 +117,11 @@ for (let i = 0; i < activitiesUserInput.length; i++) {
     if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time') 
     && selectedTimeConflict !== activitiesUserInput[i]) {
         activitiesUserInput[i].disabled = true;
-        activitiesUserInput[i].parentElement.classList.remove('disabled');
+        activitiesUserInput[i].parentElement.classList.add('disabled');
+    // } else {
+    //     activitiesUserInput[i].disabled = false;
+    //     activitiesUserInput[i].parentElement.classList.remove('disabled');
+    // }
     }
 }
 });
@@ -187,8 +192,7 @@ function validationPass(element) {
 }
 
 function validationFail(element) {
-    e.preventDefault();
-    element.parentElement.classList.add('not valid');
+    element.parentElement.classList = 'not valid';
     element.parentElement.classList.remove('valid');
     element.parentElement.lastElementChild.style.display = 'block';
 }
