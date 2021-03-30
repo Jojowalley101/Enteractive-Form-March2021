@@ -113,15 +113,24 @@ activitiesField.addEventListener('change', (event) => {
     costOfActivities.innerHTML = `Total: ${activitiesCostTotal}`;
     const timeConflict = event.target.getAttribute('data-day-and-time');
     const selectedTimeConflict = event.target;
+    //console.log(activitiesUserInput);
 for (let i = 0; i < activitiesUserInput.length; i++) {
     if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time') 
     && selectedTimeConflict !== activitiesUserInput[i]) {
-        activitiesUserInput[i].disabled = true;
-        activitiesUserInput[i].parentElement.classList.add('disabled');
-    // } else {
-    //     activitiesUserInput[i].disabled = false;
-    //     activitiesUserInput[i].parentElement.classList.remove('disabled');
-    // }
+        if (selectedTimeConflict.checked === true) {
+            activitiesUserInput[i].disabled = true;
+            activitiesUserInput[i].parentElement.classList = 'disabled';
+        } else {
+            activitiesUserInput[i].disabled = false;
+            activitiesUserInput[i].parentElement.classList.remove('disabled');
+        }
+        // if (Array.from(activitiesUserInput.checked).includes(selectedTimeConflict)) {
+        //     activitiesUserInput[i].disabled = true;
+        //     activitiesUserInput[i].parentElement.classList.add('disabled');
+        // } else {
+        //     activitiesUserInput[i].disabled = false;
+        //     activitiesUserInput[i].parentElement.classList.remove('disabled');
+        // }
     }
 }
 });
@@ -142,7 +151,7 @@ creditOrDebitSelected.setAttribute('selected', 'selected');
 preferredPayment.addEventListener('change', (event) => {
     if (event.target.value === 'paypal') {
         payPal.style.display = 'block';
-        bitCoin.style.display = 'block';
+        bitCoin.style.display = 'none';
         creditOrDebit.style.display = 'none';
     } else if (event.target.value === 'bitcoin') {
         bitCoin.style.display = 'block';
@@ -157,10 +166,10 @@ preferredPayment.addEventListener('change', (event) => {
 
 for (let i = 0; i < activitiesUserInput.length; i++) {
     activitiesUserInput[i].addEventListener('focus', (event) => {
-        activitiesUserInput[i].parentElement.classList.add('focus');
+        event.parentElement.classList.add('focus');
     });
     activitiesUserInput[i].addEventListener('blur', (event) => {
-        activitiesUserInput[i].parentElement.classList.remove('focus');
+        event.parentElement.classList.remove('focus');
     });
 }
 /**
@@ -228,19 +237,21 @@ const emailValidator = () => {
     return emailIsValid;
 }
 
-// const languageValidator = () => {
-//     const languageSectionIsValid = languageTotal > 0;
+const activitiesValidator = () => {
+    const activityIsValid = activitiesCostTotal <  0;
 
-//     if (languageSectionIsValid == true) {
-//         validationPass(languagesBox);
-//     } else {
-//         validationFail(languagesBox);
-//     }
+    if (activityIsValid == true) {
+        validationPass(activitiesUserInput);
+    } else {
+        validationFail(activitiesUserInput);
+    }
 
-//     languageSectionIsValid = languageTotal > 0;
+    //activitiesUserInput
 
-//     return languageSectionIsValid;
-// }
+    //activityIsValid = activitiesCostTotal < 0;
+
+    return activityIsValid;
+}
 
 const ccNum = document.getElementById('cc-num');
 const zipcode = document.getElementById('zip');
@@ -271,10 +282,12 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     }
 
-    // if (!languageValidator()) {
-    //     console.log('Invalid language total prevented submission');
-    //     e.preventDefault();
-    // }
+    //dont let them submit without checking activities 
+
+    if (!activitiesValidator()) {
+        console.log('Invalid activities total prevented submission');
+        e.preventDefault();
+    }
 
     // Submit handler test log - Feel free to delete this or comment it out
     console.log('Submit handler is functional!');
