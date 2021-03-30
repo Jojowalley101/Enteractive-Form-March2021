@@ -240,13 +240,19 @@ const emailValidator = () => {
 const activitiesValidator = () => {
     const noTotalSubmit = 0;
     const activityChecker = activitiesCostTotal > noTotalSubmit;
-    // if (noTotalSubmit == 0) {
-    //     validationPass(activityChecker);
-    // } else {
-    //     validationFail(activityChecker);
-    // }
 
-    return activityChecker;
+    if (noTotalSubmit !== 0) {
+        activitiesField.classList.add('valid');
+        activitiesField.classList.remove('not-valid');
+        activitiesField.lastElementChild.style.display = 'none';
+    } else {
+        activitiesField.classList.add('not-valid');
+        activitiesField.classList.remove('valid');
+        activitiesField.lastElementChild.style.display = 'block';
+
+    }
+
+    //return activitiesUserInput;
 }
 
 const ccNum = document.getElementById('cc-num');
