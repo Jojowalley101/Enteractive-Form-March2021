@@ -195,7 +195,7 @@ const email = document.querySelector("#email");
 // });
 
 function validationPass(element) {
-    element.parentElement.classList("valid");
+    element.parentElement.classList.add("valid");
     element.parentElement.classList.remove("not-valid");
     element.parentElement.lastElementChild.style.display = "none";
 }
@@ -240,6 +240,12 @@ const emailValidator = () => {
 const activitiesValidator = () => {
     const noTotalSubmit = 0;
     const activityChecker = activitiesCostTotal > noTotalSubmit;
+    // if (noTotalSubmit == 0) {
+    //     validationPass(activityChecker);
+    // } else {
+    //     validationFail(activityChecker);
+    // }
+
     return activityChecker;
 }
 
@@ -297,29 +303,29 @@ form.addEventListener('submit', (e) => {
         const ccValidTest = /^[0-9]{13,16}$/.test(ccVal);
         const ccHint = ccNum.parentElement;
         if (!ccValidTest) {
-            validationFail(ccHint);
+            validationFail(ccNum);
             e.preventDefault;
         } else {
-            validationPass(ccHint);
+            validationPass(ccNum);
         }
 
         const zipcodeVal = zipcode.value;
         const zipcodeValidTest = /^\d{5}$/.test(zipcodeVal);
         const zipHint = zipcodeVal.parentElement;
         if (!zipcodeValidTest) {
-            validationFail(zipHint);
+            validationFail(zipcode);
             e.preventDefault;
         } else {
-            validationPass(zipHint);
+            validationPass(zipcode);
         }
         const cvvVal = cvvInput.value;
         const cvvValidTest = /^[0-9]{3,}$/.test(cvvVal);
         const cvvHint = cvvVal.parentElement;
         if (!cvvValidTest) {
-            validationFail(cvvHint);
+            validationFail(cvvInput);
             e.preventDefault;
         } else {
-            validationPass(cvvHint);
+            validationPass(cvvInput);
         }
     } else if (preferredPayment.value === 'paypal') {
         validationPass(payPal);
