@@ -166,10 +166,10 @@ preferredPayment.addEventListener('change', (event) => {
 
 for (let i = 0; i < activitiesUserInput.length; i++) {
     activitiesUserInput[i].addEventListener('focus', (event) => {
-        event.parentElement.classList.add('focus');
+        activitiesUserInput[i].parentElement.classList.add('focus');
     });
     activitiesUserInput[i].addEventListener('blur', (event) => {
-        event.parentElement.classList.remove('focus');
+        activitiesUserInput[i].parentElement.classList.remove('focus');
     });
 }
 /**
@@ -195,15 +195,15 @@ const email = document.querySelector("#email");
 // });
 
 function validationPass(element) {
-    element.parentElement.classList.add('valid');
-    element.parentElement.classList.remove('not-valid');
-    element.parentElement.lastElementChild.style.display = 'none';
+    element.parentElement.classList("valid");
+    element.parentElement.classList.remove("not-valid");
+    element.parentElement.lastElementChild.style.display = "none";
 }
-
+//console.log(validationPass(form));
 function validationFail(element) {
-    element.parentElement.classList = 'not valid';
-    element.parentElement.classList.remove('valid');
-    element.parentElement.lastElementChild.style.display = 'block';
+    element.parentElement.classList.add("not-valid");
+    element.parentElement.classList.remove("valid");
+    element.parentElement.lastElementChild.style.display = "block";
 }
 
 /* Helper function to validate name input */
@@ -238,19 +238,9 @@ const emailValidator = () => {
 }
 
 const activitiesValidator = () => {
-    const activityIsValid = activitiesCostTotal <  0;
-
-    if (activityIsValid == true) {
-        validationPass(activitiesUserInput);
-    } else {
-        validationFail(activitiesUserInput);
-    }
-
-    //activitiesUserInput
-
-    //activityIsValid = activitiesCostTotal < 0;
-
-    return activityIsValid;
+    const noTotalSubmit = 0;
+    const activityChecker = activitiesCostTotal > noTotalSubmit;
+    return activityChecker;
 }
 
 const ccNum = document.getElementById('cc-num');
@@ -288,6 +278,16 @@ form.addEventListener('submit', (e) => {
         console.log('Invalid activities total prevented submission');
         e.preventDefault();
     }
+
+    // e.target.activitiesCostTotal;
+    // for (let i = 0; activitiesCostTotal < length; i++) {
+    //     const activitiesSumbitOrNo = activitiesCostTotal[i].getAttribute('data-cost');
+    //     if (activitiesSumbitOrNo >= 100) {
+    //         activitiesCostTotal.parentElement.classList.add('valid');
+    //     } else {
+    //         activitiesCostTotal.parentElement.classList.add('not-valid'); 
+    //     }
+    // }
 
     // Submit handler test log - Feel free to delete this or comment it out
     console.log('Submit handler is functional!');
