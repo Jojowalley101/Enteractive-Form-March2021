@@ -241,14 +241,16 @@ const activitiesValidator = () => {
     const noTotalSubmit = 0;
     const activityChecker = activitiesCostTotal > noTotalSubmit;
 
-    if (noTotalSubmit !== 0) {
+    if (activityChecker > 0) {
         activitiesField.classList.add('valid');
         activitiesField.classList.remove('not-valid');
         activitiesField.lastElementChild.style.display = 'none';
+        return true;
     } else {
         activitiesField.classList.add('not-valid');
         activitiesField.classList.remove('valid');
         activitiesField.lastElementChild.style.display = 'block';
+        return false;
 
     }
 
@@ -271,7 +273,7 @@ nameElement.addEventListener('keyup', nameValidator);
 /* Submit listener on the form element */
 form.addEventListener('submit', (e) => {
 
-    e.preventDefault();
+    //e.preventDefault();
 
 
     if (!nameValidator()) {
@@ -333,11 +335,12 @@ form.addEventListener('submit', (e) => {
         } else {
             validationPass(cvvInput);
         }
-    } else if (preferredPayment.value === 'paypal') {
-        validationPass(payPal);
-    } else if (preferredPayment.value === 'bitcoin') {
-        validationPass(bitCoin);
-}
+//     } else if (preferredPayment.value === 'paypal') {
+//         validationPass(payPal);
+//     } else if (preferredPayment.value === 'bitcoin') {
+//         validationPass(bitCoin);
+// }
+    }
 
 });
 
