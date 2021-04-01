@@ -257,10 +257,36 @@ const activitiesValidator = () => {
     //return activitiesUserInput;
 }
 
+
 const ccNum = document.getElementById('cc-num');
 const zipcode = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 
+const ccNumValidator = () => {
+    if (ccNum == ' ') {
+        validationFail(ccNum);
+    } else {
+        validationPass(ccNum);
+    }
+}
+
+const zipValidator = () => {
+    if (zipcode == ' ') {
+        validationFail(zipcode);
+    } else {
+        validationPass(zipcode);
+    }
+}
+
+const cvvValidator = () => {
+    if (cvvInput > 4) {
+        if (cvvInput == ' ') {
+            validationFail(cvvInput);
+        }
+    } else {
+        validationPass(cvvInput);
+    }
+}
 
 /* Add real-time validation */
 // To add real time validation, use the .addEventListener() method on the form elements/sections
@@ -292,6 +318,20 @@ form.addEventListener('submit', (e) => {
         console.log('Invalid activities total prevented submission');
         e.preventDefault();
     }
+    if (!cvvValidator()) {
+        console.log('Invalid cvv prevented submission');
+        e.preventDefault(); 
+    }
+    if (!zipValidator()) {
+        console.log('Invalid zipcode prevented submission');
+        e.preventDefault();
+    }
+    if (!ccNumValidator()) {
+        console.log('Invalid activities total prevented submission');
+        e.preventDefault();
+    }
+
+    
 
     // e.target.activitiesCostTotal;
     // for (let i = 0; activitiesCostTotal < length; i++) {
