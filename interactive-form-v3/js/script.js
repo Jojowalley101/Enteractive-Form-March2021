@@ -279,7 +279,7 @@ const zipValidator = () => {
 }
 
 const cvvValidator = () => {
-    if (cvvInput > 4) {
+    if (cvvInput > 3) {
         if (cvvInput == ' ') {
             validationFail(cvvInput);
         }
@@ -318,17 +318,19 @@ form.addEventListener('submit', (e) => {
         console.log('Invalid activities total prevented submission');
         e.preventDefault();
     }
-    if (!cvvValidator()) {
-        console.log('Invalid cvv prevented submission');
-        e.preventDefault(); 
-    }
-    if (!zipValidator()) {
-        console.log('Invalid zipcode prevented submission');
-        e.preventDefault();
-    }
-    if (!ccNumValidator()) {
-        console.log('Invalid activities total prevented submission');
-        e.preventDefault();
+    if (creditOrDebitSelected == true) {
+        if (!cvvValidator()) {
+            console.log('Invalid cvv prevented submission');
+            e.preventDefault(); 
+        }
+        if (!zipValidator()) {
+            console.log('Invalid zipcode prevented submission');
+            e.preventDefault();
+        }
+        if (!ccNumValidator()) {
+            console.log('Invalid activities total prevented submission');
+            e.preventDefault();
+        }
     }
 
     
