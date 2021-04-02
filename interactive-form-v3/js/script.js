@@ -206,6 +206,16 @@ function validationFail(element) {
     element.parentElement.lastElementChild.style.display = "block";
 }
 
+
+function showError(element) {
+    var element = document.getElementById('email-hint');
+    var error_span = document.createElement('span');
+    error_span.id = element + 'error';
+    error_span.className = 'invalid email address error';
+    error_span.innerHTML = 'Please enter a valid email address';
+    element.parentNode.insertBefore(error_span, element.nextSibling);
+
+}
 /* Helper function to validate name input */
 const nameValidator = () => {
 
@@ -232,6 +242,11 @@ const emailValidator = () => {
         validationPass(email);
     } else {
         validationFail(email);
+        showError(email);
+        // if (email.id == ' ') {
+        //     const otherEmailHint = document.getElementById('email-hint');
+        //     email.value === '' ? otherEmailHint.textContent = 'Please enter a valid email address' : otherEmailHint.textContent = 'Email address must be formatted correctly';
+        // }
     }
 
     return emailIsValid;
@@ -295,6 +310,7 @@ const cvvValidator = () => {
 // Don't use parens when passing a reference to a function as a callback
 // Something like: `nameElement.addEventListener('keyup', nameValidator);`
 nameElement.addEventListener('keyup', nameValidator);
+email.addEventListener('keyup', emailValidator);
 
 /* Submit listener on the form element */
 form.addEventListener('submit', (e) => {
@@ -311,6 +327,15 @@ form.addEventListener('submit', (e) => {
         console.log('Invalid email prevented submission');
         e.preventDefault();
     }
+    if (emailValidator()) {
+        showError(emailValidator);
+        e.preventDefault();
+    }
+    // } else {
+    //     const otherEmailHint = document.getElementById('email-hint');
+    //     otherEmailHint.textContent = 'Please enter a valid email address';
+
+    // }
 
     //dont let them submit without checking activities 
 
@@ -328,7 +353,7 @@ form.addEventListener('submit', (e) => {
             e.preventDefault();
         }
         if (!ccNumValidator()) {
-            console.log('Invalid activities total prevented submission');
+            console.log('Invalid ccNum prevented submission');
             e.preventDefault();
         }
     }
@@ -373,6 +398,7 @@ form.addEventListener('submit', (e) => {
         const cvvHint = cvvVal.parentElement;
         if (!cvvValidTest) {
             validationFail(cvvInput);
+            
             e.preventDefault;
         } else {
             validationPass(cvvInput);
