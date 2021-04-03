@@ -207,15 +207,15 @@ function validationFail(element) {
 }
 
 
-function showError(element) {
-    var element = document.getElementById('email-hint');
-    var error_span = document.createElement('span');
-    error_span.id = element + 'error';
-    error_span.className = 'invalid email address error';
-    error_span.innerHTML = 'Please enter a valid email address';
-    element.parentNode.insertBefore(error_span, element.nextSibling);
+// function showError(element) {
+//     var element = document.getElementById('email-hint');
+//     var error_span = document.createElement('span');
+//     error_span.id = element + 'error';
+//     error_span.className = 'invalid email address error';
+//     error_span.innerHTML = 'Please enter a valid email address';
+//     element.parentNode.insertBefore(error_span, element.nextSibling);
 
-}
+// }
 /* Helper function to validate name input */
 const nameValidator = () => {
 
@@ -242,7 +242,7 @@ const emailValidator = () => {
         validationPass(email);
     } else {
         validationFail(email);
-        showError(email);
+        //showError(email);
         // if (email.id == ' ') {
         //     const otherEmailHint = document.getElementById('email-hint');
         //     email.value === '' ? otherEmailHint.textContent = 'Please enter a valid email address' : otherEmailHint.textContent = 'Email address must be formatted correctly';
@@ -309,8 +309,21 @@ const cvvValidator = () => {
 // As the callback, use the validation functions above, but remember, 
 // Don't use parens when passing a reference to a function as a callback
 // Something like: `nameElement.addEventListener('keyup', nameValidator);`
-nameElement.addEventListener('keyup', nameValidator);
-email.addEventListener('keyup', emailValidator);
+// nameElement.addEventListener('keyup', (e) => {
+//     e.nameValidator(). = 'name-hint'
+
+// });
+
+form.addEventListener('input', (e) => {
+    if (nameValidator()) {
+        e.target.nameElement;
+    }
+
+    if (emailValidator()) {
+        e.target.email;
+    }
+
+});
 
 /* Submit listener on the form element */
 form.addEventListener('submit', (e) => {
@@ -319,18 +332,24 @@ form.addEventListener('submit', (e) => {
 
 
     if (!nameValidator()) {
-        console.log('Invalid name prevented submission');
+        //console.log('Invalid name prevented submission');
         e.preventDefault();
     }
 
     if (!emailValidator()) {
-        console.log('Invalid email prevented submission');
+        //console.log('Invalid email prevented submission');
         e.preventDefault();
+        if (email.value === "") {
+            email.parentElement.className = 'not-valid';
+            email.parentElement.lastElementChild.className = 'email-hint';
+            email.parentElement.lastElementChild.innerHTML = `Email address cannot be empty`;
+        } else {
+            email.parentElement.className = 'not-valid';
+            email.parentElement.lastElementChild.className = 'email-hint';
+            email.parentElement.lastElementChild.innerHTML = `Email address must be formatted correctly`
+        }
     }
-    if (emailValidator()) {
-        showError(emailValidator);
-        e.preventDefault();
-    }
+    
     // } else {
     //     const otherEmailHint = document.getElementById('email-hint');
     //     otherEmailHint.textContent = 'Please enter a valid email address';
@@ -343,6 +362,7 @@ form.addEventListener('submit', (e) => {
         console.log('Invalid activities total prevented submission');
         e.preventDefault();
     }
+
     if (creditOrDebitSelected == true) {
         if (!cvvValidator()) {
             console.log('Invalid cvv prevented submission');
@@ -398,7 +418,6 @@ form.addEventListener('submit', (e) => {
         const cvvHint = cvvVal.parentElement;
         if (!cvvValidTest) {
             validationFail(cvvInput);
-            
             e.preventDefault;
         } else {
             validationPass(cvvInput);
