@@ -363,7 +363,7 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     }
 
-    if (creditOrDebitSelected == creditOrDebit) {
+    if (preferredPayment.value === 'credit-card') {
         if (!cvvValidator()) {
             console.log('Invalid cvv prevented submission');
             e.preventDefault(); 
