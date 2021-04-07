@@ -400,7 +400,7 @@ form.addEventListener('submit', (e) => {
         const ccHint = ccNum.parentElement;
         if (!ccValidTest) {
             validationFail(ccNum);
-            e.preventDefault;
+            e.preventDefault();
         } else {
             validationPass(ccNum);
         }
@@ -410,7 +410,7 @@ form.addEventListener('submit', (e) => {
         const zipHint = zipcodeVal.parentElement;
         if (!zipcodeValidTest) {
             validationFail(zipcode);
-            e.preventDefault;
+            e.preventDefault();
         } else {
             validationPass(zipcode);
         }
@@ -419,7 +419,7 @@ form.addEventListener('submit', (e) => {
         const cvvHint = cvvVal.parentElement;
         if (!cvvValidTest) {
             validationFail(cvvInput);
-            e.preventDefault;
+            e.preventDefault();
         } else {
             validationPass(cvvInput);
         }
