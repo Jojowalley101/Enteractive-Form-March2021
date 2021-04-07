@@ -16,10 +16,10 @@ const userName = document.getElementById('name');
 userName.focus();
 //console.log(userName);
 
- /**
-  * Hide the "text field" with the id of "other-job-role" 
-  * so it is not displayed when the form first loads.
-  */
+/**
+ * Hide the "text field" with the id of "other-job-role" 
+ * so it is not displayed when the form first loads.
+ */
 let jobRole = document.getElementById('title');
 
 let otherJobRole = document.getElementById('other-job-role');
@@ -72,12 +72,12 @@ shirtDesignElement.addEventListener('change', () => {
     shirtColorElement.disabled = false;
     shirtColorElement.firstElementChild.selected = true;
     for (let i = 0; i < shirtColorOptions.length; i++) {
-        
+
         //console.log(targetValueOfImg);
         //console.log(shirtColorElement.children[i]);
         const dataThemeElement = shirtColorElement[i].getAttribute('data-theme');
         //console.log(dataThemeElement);
-        
+
 
         if (shirtDesignElement.value === dataThemeElement) {
             shirtColorElement[i].hidden = false;
@@ -85,8 +85,8 @@ shirtDesignElement.addEventListener('change', () => {
         } else {
             shirtColorElement[i].hidden = true;
             //console.log("The select element's change event listener is functional!");
+        };
     };
-};
 });
 
 
@@ -114,25 +114,25 @@ activitiesField.addEventListener('change', (event) => {
     const timeConflict = event.target.getAttribute('data-day-and-time');
     const selectedTimeConflict = event.target;
     //console.log(activitiesUserInput);
-for (let i = 0; i < activitiesUserInput.length; i++) {
-    if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time') 
-    && selectedTimeConflict !== activitiesUserInput[i]) {
-        if (selectedTimeConflict.checked === true) {
-            activitiesUserInput[i].disabled = true;
-            activitiesUserInput[i].parentElement.classList = 'disabled';
-        } else {
-            activitiesUserInput[i].disabled = false;
-            activitiesUserInput[i].parentElement.classList.remove('disabled');
+    for (let i = 0; i < activitiesUserInput.length; i++) {
+        if (timeConflict === activitiesUserInput[i].getAttribute('data-day-and-time')
+            && selectedTimeConflict !== activitiesUserInput[i]) {
+            if (selectedTimeConflict.checked === true) {
+                activitiesUserInput[i].disabled = true;
+                activitiesUserInput[i].parentElement.classList = 'disabled';
+            } else {
+                activitiesUserInput[i].disabled = false;
+                activitiesUserInput[i].parentElement.classList.remove('disabled');
+            }
+            // if (Array.from(activitiesUserInput.checked).includes(selectedTimeConflict)) {
+            //     activitiesUserInput[i].disabled = true;
+            //     activitiesUserInput[i].parentElement.classList.add('disabled');
+            // } else {
+            //     activitiesUserInput[i].disabled = false;
+            //     activitiesUserInput[i].parentElement.classList.remove('disabled');
+            // }
         }
-        // if (Array.from(activitiesUserInput.checked).includes(selectedTimeConflict)) {
-        //     activitiesUserInput[i].disabled = true;
-        //     activitiesUserInput[i].parentElement.classList.add('disabled');
-        // } else {
-        //     activitiesUserInput[i].disabled = false;
-        //     activitiesUserInput[i].parentElement.classList.remove('disabled');
-        // }
     }
-}
 });
 /**
  * The preferred or most common payment method option should be selected 
@@ -178,8 +178,6 @@ for (let i = 0; i < activitiesUserInput.length; i++) {
 * and then to test the value or condition of the required form fields or sections when submission is detected, 
 * and finally allow/prevent submission based on the results of those tests.
 * Programming the "Form Validation" section requires working with the following elements:
-
-
 /* Variable to store form inputs - You'll use these in the functions below' */
 const form = document.querySelector("form");
 const nameElement = document.querySelector("#name");
@@ -219,7 +217,7 @@ function validationFail(element) {
 /* Helper function to validate name input */
 const nameValidator = () => {
 
-// Tests that there is at least a first name containing only letters, and allows for a middle and last name.
+    // Tests that there is at least a first name containing only letters, and allows for a middle and last name.
     const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameElement.value);
 
     if (nameIsValid == true) {
@@ -227,7 +225,7 @@ const nameValidator = () => {
     } else {
         validationFail(nameElement);
     }
-                
+
     return nameIsValid;
 }
 
@@ -235,7 +233,7 @@ const nameValidator = () => {
 /* Helper function to validate email input */
 const emailValidator = () => {
 
-                    
+
     const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
 
     if (emailIsValid == true) {
@@ -280,6 +278,7 @@ const cvvInput = document.getElementById('cvv');
 const ccNumValidator = () => {
     if (ccNum == ' ') {
         validationFail(ccNum);
+        return false;
     } else {
         validationPass(ccNum);
     }
@@ -288,6 +287,7 @@ const ccNumValidator = () => {
 const zipValidator = () => {
     if (zipcode == ' ') {
         validationFail(zipcode);
+        return false;
     } else {
         validationPass(zipcode);
     }
@@ -297,6 +297,7 @@ const cvvValidator = () => {
     if (cvvInput > 3) {
         if (cvvInput == ' ') {
             validationFail(cvvInput);
+            return false;
         }
     } else {
         validationPass(cvvInput);
@@ -349,7 +350,7 @@ form.addEventListener('submit', (e) => {
             email.parentElement.lastElementChild.innerHTML = `Email address must be formatted correctly`
         }
     }
-    
+
     // } else {
     //     const otherEmailHint = document.getElementById('email-hint');
     //     otherEmailHint.textContent = 'Please enter a valid email address';
@@ -363,22 +364,22 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     }
 
-    if (preferredPayment.value === 'credit-card') {
-        if (!cvvValidator()) {
-            console.log('Invalid cvv prevented submission');
-            e.preventDefault(); 
-        }
-        if (!zipValidator()) {
-            console.log('Invalid zipcode prevented submission');
-            e.preventDefault();
-        }
-        if (!ccNumValidator()) {
-            console.log('Invalid ccNum prevented submission');
-            e.preventDefault();
-        }
-    }
+    // if (preferredPayment.value === 'credit-card') {
+    //     if (!cvvValidator()) {
+    //         console.log('Invalid cvv prevented submission');
+    //         e.preventDefault();
+    //     }
+    //     if (!zipValidator()) {
+    //         console.log('Invalid zipcode prevented submission');
+    //         e.preventDefault();
+    //     }
+    //     if (!ccNumValidator()) {
+    //         console.log('Invalid ccNum prevented submission');
+    //         e.preventDefault();
+    //     }
+    // }
 
-    
+
 
     // e.target.activitiesCostTotal;
     // for (let i = 0; activitiesCostTotal < length; i++) {
@@ -391,7 +392,7 @@ form.addEventListener('submit', (e) => {
     // }
 
     // Submit handler test log - Feel free to delete this or comment it out
-    console.log('Submit handler is functional!');
+    //console.log('Submit handler is functional!');
 
     if (preferredPayment.value === 'credit-card') {
         const ccVal = ccNum.value;
@@ -422,26 +423,13 @@ form.addEventListener('submit', (e) => {
         } else {
             validationPass(cvvInput);
         }
-//     } else if (preferredPayment.value === 'paypal') {
-//         validationPass(payPal);
-//     } else if (preferredPayment.value === 'bitcoin') {
-//         validationPass(bitCoin);
-// }
+        //     } else if (preferredPayment.value === 'paypal') {
+        //         validationPass(payPal);
+        //     } else if (preferredPayment.value === 'bitcoin') {
+        //         validationPass(bitCoin);
+        // }
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
